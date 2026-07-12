@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: pronouncecoach
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false          # set in Render dashboard — required (STT + fallback LLM)
+      - key: ANTHROPIC_API_KEY
+        sync: false          # optional — upgrades the feedback judge to Claude
+      - key: PYTHON_VERSION
+        value: 3.12.8

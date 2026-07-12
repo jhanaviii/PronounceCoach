@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PronounceCoach — English Pronunciation Feedback</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+</head>
+<body>
+<main class="shell">
+  <header>
+    <h1>🎙️ PronounceCoach</h1>
+    <p class="tagline">Record 30–45 seconds of English speech and get a pronunciation score with word-level feedback.</p>
+  </header>
+
+  <!-- Consent gate (DPDP: free, specific, informed consent before any processing) -->
+  <section id="consent-card" class="card">
+    <h2>Before we start</h2>
+    <p>To score your pronunciation, this app sends your audio to a speech-recognition
+    and an AI feedback service. <strong>Your audio is processed in memory and deleted
+    immediately after analysis</strong> — nothing is stored on our servers, and results
+    live only in your browser tab.</p>
+    <label class="consent-row">
+      <input type="checkbox" id="consent-check">
+      <span>I consent to my voice recording being processed for pronunciation
+      feedback, as described above and in the <a href="#privacy">privacy notice</a>.</span>
+    </label>
+    <button id="consent-btn" class="primary" disabled>Continue</button>
+  </section>
+
+  <!-- Capture -->
+  <section id="capture-card" class="card hidden">
+    <div class="capture-grid">
+      <div class="capture-block">
+        <h2>Record</h2>
+        <button id="record-btn" class="record-btn">● Start recording</button>
+        <div id="timer" class="timer">0:00 <span class="dim">/ 0:45 max</span></div>
+        <div id="level-meter"><div id="level-bar"></div></div>
+      </div>
+      <div class="capture-divider">or</div>
+      <div class="capture-block">
+        <h2>Upload</h2>
+        <input type="file" id="file-input" accept="audio/*" class="hidden">
+        <button id="upload-btn" class="secondary">Choose audio file</button>
+        <p class="hint">mp3, wav, m4a, webm, ogg · 30–45 seconds · English</p>
+      </div>
+    </div>
+    <div id="preview" class="preview hidden">
+      <audio id="player" controls></audio>
+      <div class="preview-actions">
+        <button id="analyze-btn" class="primary">Analyze pronunciation</button>
+        <button id="discard-btn" class="ghost">Discard</button>
+      </div>
+    </div>
+    <p id="capture-error" class="error hidden"></p>
+  </section>
+
+  <!-- Loading -->
+  <section id="loading-card" class="card hidden">
+    <div class="spinner"></div>
+    <p id="loading-text">Transcribing your speech…</p>
+  </section>
+
+  <!-- Results -->
+  <section id="results-card" class="card hidden">
+    <div class="score-row">
+      <div class="score-ring-wrap">
+        <svg viewBox="0 0 120 120" class="score-ring">
+          <circle cx="60" cy="60" r="52" class="ring-bg"/>
+          <circle cx="60" cy="60" r="52" class="ring-fg" id="ring-fg"/>
+        </svg>
+        <div class="score-num"><span id="score-value">–</span><small>/100</small></div>
+      </div>
+      <div class="subscores">
+        <div class="subscore"><span class="label">Clarity</span><div class="bar"><div id="bar-clarity"></div></div><span id="val-clarity"></span></div>
+        <div class="subscore"><span class="label">Accuracy</span><div class="bar"><div id="bar-accuracy"></div></div><span id="val-accuracy"></span></div>
+        <div class="subscore"><span class="label">Fluency</span><div class="bar"><div id="bar-fluency"></div></div><span id="val-fluency"></span></div>
+      </div>
+    </div>
+
+    <p id="summary" class="summary"></p>
+
+    <h3>What we heard <span class="legend">
+      <span class="chip ok">fine</span>
+      <span class="chip warn">needs attention</span>
+      <span class="chip bad">problem</span></span>
+    </h3>
+    <p class="hint">Hover or tap a highlighted word to see what went wrong.</p>
+    <div id="transcript" class="transcript"></div>
+
+    <div id="issues-block">
+      <h3>Specific feedback</h3>
+      <ul id="issues-list" class="issues"></ul>
+    </div>
+
+    <div id="tips-block" class="hidden">
+      <h3>Practice tips</h3>
+      <ul id="tips-list" class="tips"></ul>
+    </div>
+
+    <div class="results-actions">
+      <button id="again-btn" class="primary">Try again</button>
+    </div>
+  </section>
+
+  <footer id="privacy">
+    <h3>Privacy notice (DPDP Act 2023)</h3>
+    <p>
+      <strong>What we collect:</strong> only the audio you submit, only with your consent, only to
+      generate pronunciation feedback. <strong>Storage &amp; retention:</strong> audio is held in
+      server memory for the seconds it takes to analyze, then discarded — retention is zero; no
+      database, no files, no accounts. <strong>Processing:</strong> audio is transcribed by a
+      speech-recognition API and the transcript is reviewed by an AI model; these processors do
+      not retain your data for training under their API terms. <strong>Your rights:</strong>
+      close the tab or press "Try again" and every trace of your session is gone. Questions or
+      grievances: <a href="mailto:sudarshansdaga@gmail.com">contact the data fiduciary</a>.
+    </p>
+  </footer>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
