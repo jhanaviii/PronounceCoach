@@ -3,7 +3,9 @@
 A web app that scores English pronunciation from a 30–45 second audio clip and
 highlights exactly which words went wrong — built as the Livo AI SWE assessment.
 
-**Live demo:** _add your Render URL here after deploying (see below)_
+**Live demo:** https://pronouncecoach.onrender.com
+
+> Hosted on Render's free tier — if it's been idle, the first load takes ~30s to wake up.
 
 ## What it does
 
